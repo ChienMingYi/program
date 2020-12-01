@@ -1,0 +1,8 @@
+*.png
+result
+*.txt
+*.jpg
+catkin_workspace/
+*.pth
+devel/
+build/
