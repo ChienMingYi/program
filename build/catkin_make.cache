@@ -1,0 +1,2 @@
+vision/get_rs_image:vision/realsense-ros/realsense2_camera:vision/realsense-ros/realsense2_description:yolact
+-DCATKIN_DEVEL_PREFIX=/home/chien/ros_yolact/devel -DCMAKE_INSTALL_PREFIX=/home/chien/ros_yolact/install -G Unix Makefiles

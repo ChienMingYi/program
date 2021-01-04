@@ -105,7 +105,8 @@ class Config(object):
 
 # ----------------------- DATASETS ----------------------- #
 ##########################################################################mike
-CLASS_DATA=('Danboard','Chili Flakes','Block')
+CLASS_DATA=('Danboard_f','Danboard_b','ChiliFlakes_f','ChiliFlakes_b','Block','BlackPapper_f','BlackPapper_b')
+#CLASS_DATA=('Danboard','Chili Flakes','Block')
 dataset_base = Config({
     'name': 'test',
 
@@ -126,7 +127,8 @@ dataset_base = Config({
     # COCO class ids aren't sequential, so this is a bandage fix. If your ids aren't sequential,
     # provide a map from category_id -> index in class_names + 1 (the +1 is there because it's 1-indexed).
     # If not specified, this just assumes category ids start at 1 and increase sequentially.
-    'label_map': None
+    'label_map':{ 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7}
+    
 })
 '''
 dataset_base = Config({
@@ -683,7 +685,7 @@ yolact_base_config = coco_base_config.copy({
 
     # Dataset stuff
     'dataset': dataset_base,
-    'num_classes': 4,
+    'num_classes': 8,
 '''
 yolact_base_config = coco_base_config.copy({
     'name': 'yolact_base',
@@ -700,8 +702,8 @@ yolact_base_config = coco_base_config.copy({
     #'lr_steps': (280000, 600000, 700000, 750000),
     #'max_iter': 800000,
     ######################################################################mike
-    'lr_steps': (4800, 12000, 19200, 26400),
-    'max_iter': 40000,
+    'lr_steps': (6000, 15000, 24000, 33000),
+    'max_iter': 50000,
     ######################################################################
     # Backbone Settings
     'backbone': resnet101_backbone.copy({

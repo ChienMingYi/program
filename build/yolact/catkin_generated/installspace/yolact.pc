@@ -1,0 +1,8 @@
+prefix=/home/chien/ros_yolact/install
+
+Name: yolact
+Description: Description of yolact
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: roscpp rospy std_msgs

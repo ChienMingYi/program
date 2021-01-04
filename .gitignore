@@ -4,5 +4,6 @@ result
 *.jpg
 catkin_workspace/
 *.pth
+*.pyc
 devel/
-build/
+build/s
