@@ -32,11 +32,12 @@ if __name__ == '__main__':
     rospy.init_node('Get_Data')
     
     while not rospy.is_shutdown():
-        cv2.imshow('aaa', sub_img.cv_image)
+        image = cv2.cvtColor( sub_img.cv_image, cv2.COLOR_BGR2GRAY)
+        cv2.imshow('aaa', image)
         cv2.waitKey(1)
         if cv2.waitKey(33) & 0xFF == ord('s'):
             name = str(Train_Data_Dir + str(Object_Name + '_' + str(take_picture_counter+1) + ".jpg"))
-            cv2.imwrite(name,sub_img.cv_image)
+            cv2.imwrite(name,image)
             print("[Save] ", name)
             take_picture_counter += 1
         else:

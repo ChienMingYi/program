@@ -31,7 +31,7 @@ class Get_image():
         self.cv_image = None
         self.cv_depth = None
         self.display_mode = 'rgb'
-        # self.display_mode = 'depth'
+        #self.display_mode = 'depth'
 
     def show_image(self):
         '''
@@ -60,7 +60,7 @@ class Get_image():
         except CvBridgeError as e:
             print(e)
 
-        #if(self.display_mode=='rgb')or(self.display_mode=='rgbd'):
+        #if(self.display_mode=='rgb')or(self.display_mode=='depth'):
         #    self.show_image()
 
 

@@ -9,7 +9,7 @@ from utils import timer
 from utils.functions import SavePath
 from layers.output_utils import postprocess, undo_image_transformation
 import pycocotools
-
+import tensorflow as tf
 from data import cfg, set_cfg, set_dataset
 
 import numpy as np
@@ -172,24 +172,46 @@ preX = []
 preY = []
 flag = False
 misx = []
-misy=[]
-po = 0
-pi = 0
-'''
-def gen_point(x1,y1,x2,y2):
-    global state, frame_count, old_cenX, old_cenY, centX, centY
-    centerX = (x1+x2)/2.0
-    centerY = (y1+y2)/2.0
-    if state == True:
-        if (frame_count%10) == 4:
-            centX.append(centerX)
-            centY.append(centerY)
+misy=[] 
 
-            old_cenX = centerX
-            old_cenY = centerY
-    frame_count +=1
-    state = True
-'''  
+
+def trans_degree(x,y,degree):
+    
+    degree=float(degree)*math.pi/180
+    l=50
+    #####
+    f_x=float(x)-l*math.sin(degree)
+    f_y=float(y)+l*math.cos(degree)
+    #####
+    tmp_x=x-round(f_x)
+    tmp_y=y-round(f_y)
+    return (round(tmp_x),round(tmp_y))
+
+def arctan_recovery(cos_x,sin_x):
+    global target_ang
+    predict_degree = 0.5*np.arctan2(sin_x,cos_x)
+    predict_degree=predict_degree/math.pi*180
+    target_ang = predict_degree
+    return predict_degree
+
+def predict1_next(Img,Px, Py):
+    global model, state_pre
+    x_input = np.array([[  [Px[0],Py[0]], [Px[1],Py[1]],  [Px[2],Py[2]]  ]])
+    x_input = x_input.reshape((1, 3, 2))
+    x_input=x_input/100.
+
+    photo = np.array(Img) 
+    photo = np.expand_dims(photo, axis=0)
+    photo=photo.reshape((-1,480,640,1))
+    photo=photo/255
+    predict_degree, yhat = model.predict([photo, x_input], verbose=0)
+    degree = arctan_recovery(predict_degree[0][0],predict_degree[0][1])
+
+    yhat*=100
+    state_pre = True
+    return degree, yhat
+
+
 def predict_next(Px, Py):
     global model, state_pre
     x_input = np.array([[  [Px[0],Py[0]], [Px[1],Py[1]],  [Px[2],Py[2]]  ]])
@@ -200,24 +222,25 @@ def predict_next(Px, Py):
     state_pre = True
     return yhat
     
-def plot_data(real_posX,real_posY, pre_posX, pre_posY, misx, misy):
+def plot_data(real_posX,real_posY, pre_posX, pre_posY):
+    '''
     x = (np.sum(misx)/len(misx))
     y = (np.sum(misy)/len(misy))
-    print('x ',x)
-    print('y ',y)
     plt.xlabel('X (Pixel)')
     plt.ylabel('Y (Pixel)')
     plt.text(180,218, 'x average error: %f pixel'% x)
     plt.text(180,216, 'y average error: %f pixel'% y)
     plt.ylim(185,220)
     plt.title("Speed : 3.54 cm/s \n (Record every 10 fps )")
-
+    '''
+    
+    #plt.plot(real_posX[0], real_posY[0], 'ko')
     plt.plot(real_posX, real_posY, 'ro--' , label='real_pos')
     plt.plot(pre_posX, pre_posY, 'bo--', label='pre_pos')
     plt.legend()
     plt.savefig('low_speed.png')
 
-def data_save(classes, scores, boxes):
+def data_save(img_info, classes, scores, boxes):
     global old_data, new_data, first_frame, count, old_count
     
     new_data = [[ [] for i in range(0)] for j in range(20)]
@@ -247,6 +270,7 @@ def data_save(classes, scores, boxes):
             old_data[i][3] = scores[i]
             x1,y1,x2,y2 = boxes[i, :]
             old_data[i][4] = [(x1+x2)/2, (y1+y2)/2, x1, x2, y1, y2]
+            #old_data[i][5] = img_info #0306
             old_count+=1
             
         first_frame = True 
@@ -260,6 +284,7 @@ def data_save(classes, scores, boxes):
             test[i][3] = scores[i]
             x1,y1,x2,y2 = boxes[i, :]
             test[i][4] = [(x1+x2)/2, (y1+y2)/2, x1, x2, y1, y2]
+            #test[i][5] = img_info #0306
             count +=1
              
         #rint('1   : ',test)
@@ -267,24 +292,25 @@ def data_save(classes, scores, boxes):
             testlist = []
             for j in range(old_count):
                 testlist.append(np.sqrt( pow((test[i][4][0] - old_data[j][4][0]),2) +  pow((test[i][4][1] - old_data[j][4][1]),2) )) 
-                
-            minid = testlist.index(min(testlist))
+            
+            if testlist != []:
+                minid = testlist.index(min(testlist))
 
-            if testlist[minid] < 20:
-                if test[i][1] == old_data[minid][1]:   
-                    new_data[minid] = test[i]
-                    new_data[minid][0] = minid
-                else:
-                    
+                if testlist[minid] < 20:
+                    if test[i][1] == old_data[minid][1]:   
+                        new_data[minid] = test[i]
+                        new_data[minid][0] = minid
+                    else:
+                        
+                        new_data[count+num-1] = test[i]
+                        new_data[count+num-1][0] = count+num-1
+                        num+=1
+                else: 
+
                     new_data[count+num-1] = test[i]
                     new_data[count+num-1][0] = count+num-1
+                    num1+=1 
                     num+=1
-            else: 
-
-                new_data[count+num-1] = test[i]
-                new_data[count+num-1][0] = count+num-1
-                num1+=1 
-                num+=1
         if num != 0:
             for i in range(count+num):
                 if new_data[i][2] == 0:
@@ -298,7 +324,7 @@ def data_save(classes, scores, boxes):
             count = old_count  
         old_count = count         
         #print(old_data)
-        #print('-------------')     
+        #print('-------------')    
     return new_data , old_count
 
 def prep_display(dets_out, img, h, w, undo_transform=True, class_color=False, mask_alpha=0.45, fps_str=''):
@@ -326,16 +352,16 @@ def prep_display(dets_out, img, h, w, undo_transform=True, class_color=False, ma
         #idx = t[1].argsort(0, descending=True)[:args.top_k]
         idx1 = t[1].argsort()
         idx = idx1.argsort()
-        #print('---------')
-        #print(idx1)
-        #print(idx)
         
         if cfg.eval_mask_branch:
             # Masks are drawn on the GPU, so don't copy
             masks = t[3][idx]
+            mask_picture = t[3][idx]
         classes, scores, boxes = [x[idx].cpu().numpy() for x in t[:3]]
         
-        obj_info, obj_num = data_save(classes, scores, boxes)
+        obj_info, obj_num = data_save(mask_picture, classes, scores, boxes)
+        
+        
         #print(classes)
         #print('---------')
         #np.save('masks.npy', masks.cpu().numpy())
@@ -369,10 +395,18 @@ def prep_display(dets_out, img, h, w, undo_transform=True, class_color=False, ma
     # I wish I had access to OpenGL or Vulkan but alas, I guess Pytorch tensor operations will have to suffice
     if args.display_masks and cfg.eval_mask_branch and num_dets_to_consider > 0:
         # After this, mask is of size [num_dets, h, w, 1]
+        
         masks = masks[:num_dets_to_consider, :, :, None]
         #img_gpu = img_gpu * (masks.sum(dim=0) > 0.5).float()  #only show mask
         #img_gpu = img_gpu * masks[0]
         
+
+        #mike0225
+        mask_img = img_gpu * (masks.sum(dim=0) > 0.5).float() #0209
+        global mask_numpy
+        mask_numpy = (mask_img * 255).byte().cpu().numpy() #0209
+        mask_numpy = cv2.cvtColor(mask_numpy, cv2.COLOR_BGR2GRAY)
+
         # Prepare the RGB images for each mask given their color (size [num_dets, h, w, 1])
 
         colors = torch.cat([get_color(j, on_gpu=img_gpu.device.index).view(1, 1, 1, 3) for j in range(num_dets_to_consider)], dim=0)
@@ -390,6 +424,7 @@ def prep_display(dets_out, img, h, w, undo_transform=True, class_color=False, ma
             masks_color_summand += masks_color_cumul.sum(dim=0)
 
         img_gpu = img_gpu * inv_alph_masks.prod(dim=0) + masks_color_summand
+
         
     if args.display_fps:
             # Draw the box for the fps on the GPU
@@ -401,10 +436,10 @@ def prep_display(dets_out, img, h, w, undo_transform=True, class_color=False, ma
 
         img_gpu[0:text_h+8, 0:text_w+8] *= 0.6 # 1 - Box alpha
 
+        #mask_img[0:text_h+8, 0:text_w+8] *= 0.6 #0209
     # Then draw the stuff that needs to be done on the cpu
     # Note, make sure this is a uint8 tensor or opencv will not anti alias text for whatever reason
     img_numpy = (img_gpu * 255).byte().cpu().numpy()
-
     
     
 
@@ -419,13 +454,22 @@ def prep_display(dets_out, img, h, w, undo_transform=True, class_color=False, ma
         return img_numpy
 
     if args.display_text or args.display_bboxes:
-        global  frame_count, state_pre, flag, predict_pos, centerX, centerY
+        global  frame_count, state_pre, flag, predict_pos, centerX, centerY, preX, preY, degree
         frame_count+=1
         
         for j in range(obj_num):
+            #mask_info = obj_info[j][5]
+            
+            global mask_numpy1, img_num, temp_x, temp_y
+            mask_image = mask_picture[j:j+1, :, :, None]
+            mask_image = img_gpu * (mask_image.sum(dim=0) > 0.5).float() #0209
+            mask_numpy1 = (mask_image * 255).byte().cpu().numpy() #0209
+            mask_numpy1 = cv2.cvtColor(mask_numpy1, cv2.COLOR_BGR2GRAY)
+
             
             if obj_info[j][2] == 1:
                 if frame_count%10 == 3:
+                    
                     centerX.append(obj_info[j][4][0])
                     centerY.append(obj_info[j][4][1])
 
@@ -438,7 +482,12 @@ def prep_display(dets_out, img, h, w, undo_transform=True, class_color=False, ma
                         predict_pos[j][1].pop(0) 
 
                     if len(predict_pos[j][0]) > 2:
-                        predict_pos[j][2] = predict_next( predict_pos[j][0], predict_pos[j][1])
+                        #predict_pos[j][2] = predict_next( predict_pos[j][0], predict_pos[j][1]) 
+
+                        degree, predict_pos[j][2] = predict1_next( mask_numpy1, predict_pos[j][0], predict_pos[j][1]) # test0227
+                        temp_x,temp_y=trans_degree(predict_pos[j][2][0,4,0],predict_pos[j][2][0,4,1],degree)
+                        
+                        
                         predict_pos[j][0].pop(0) #0->1
                         predict_pos[j][1].pop(0)
   
@@ -450,14 +499,25 @@ def prep_display(dets_out, img, h, w, undo_transform=True, class_color=False, ma
                             if (predict_pos[j][2][0,i,0]) > 640 or (predict_pos[j][2][0,i,1]) > 480:
                                 pass
                             else:    
-                                #pass
-                                cv2.circle(img_numpy,(predict_pos[j][2][0,i,0],predict_pos[j][2][0,i,1]),5,(0,0,213),-1)      
+                                pass
+                                #cv2.circle(img_numpy,(predict_pos[j][2][0,i,0],predict_pos[j][2][0,i,1]),5,(0,0,213),-1)      
+                        cv2.line(img_numpy,(int(obj_info[j][4][0]+temp_x),int(obj_info[j][4][1]+temp_y)),(int(obj_info[j][4][0]-temp_x),int(obj_info[j][4][1]-temp_y)),(0,0,255),3)
+                        
+                        if flag ==False:
+                            for i in range(5):
+                                preX.append(predict_pos[j][2][0,i,0])
+                                preY.append(predict_pos[j][2][0,i,1])
+                                #preY.append(num)
+                        else:
+                            preX.append(predict_pos[j][2][0,4,0])
+                            preY.append(predict_pos[j][2][0,4,1])
+                            #preY.append(num)
+
                         flag = True
                 color = get_color(obj_info[j][0])
                 score = obj_info[j][3]
                 
                 if args.display_bboxes:
-                    
                     cv2.rectangle(img_numpy, (obj_info[j][4][2], obj_info[j][4][4]), (obj_info[j][4][3], obj_info[j][4][5]), color, 1)
                 
                 if args.display_text:
@@ -484,91 +544,7 @@ def prep_display(dets_out, img, h, w, undo_transform=True, class_color=False, ma
                 predict_pos[j][2] = []
 
 
-        '''
-        for j in reversed(range(num_dets_to_consider)):
-            x1, y1, x2, y2 = boxes[j, :]
-            #
-            #if first_state == True:
-            #    old_cenX = (x1+x2)/2
-            #    old_cenY = (y1+y2)/2
-            #gen_point(x1,y1,x2,y2)
-            #first_state = False
-            #
-
-            if frame_count%10 == 3:
-                Px = (x1+x2)/2
-                Py = (y1+y2)/2
-                
-                arrayPx[j].append(Px)
-                arrayPy[j].append(Py)
-                realX.append(Px)
-                realY.append(Py)
-                #reaY.append(num)
-                
-                #
-                #if flag == True:
-                #    misx.append(abs(Px - point[j][0,0,0]))
-                #    misy.append(abs(Py - point[j][0,0,1]))
-                   
-                #    if (abs(Px - point[j][0,0,0]) > 5):
-                #        po+=1
-                #    else:
-                #        pi+=1  
-                #      
-                    
-                if len(arrayPx[j]) > 2: 
-                    point[j] = predict_next(arrayPx[j], arrayPy[j])
-                    arrayPx[j].pop(0) #0->1
-                    arrayPy[j].pop(0)
-                
-            if state_pre == True:
-                
-                if point[j] !=[]:
-                    for i in range(5):
-                        if (point[j][0,i,0]) > 640 or (point[j][0,i,1]) > 480:
-                            pass
-                        else:    
-                            cv2.circle(img_numpy,(point[j][0,i,0],point[j][0,i,1]),5,(0,0,213),-1)
-                    #preX.append(point[j][0,0,0])
-                    #preY.append(point[j][0,0,1])
-
-                    
-                    
-                    if flag ==False:
-                        for i in range(5):
-                            preX.append(point[j][0,i,0])
-                            preY.append(point[j][0,i,1])
-                            #preY.append(num)
-                    else:
-                        preX.append(point[j][0,4,0])
-                        preY.append(point[j][0,4,1])
-                        #preY.append(num)
-                       
-                    flag = True
-            color = get_color(j)
-            score = scores[j]
-            if args.display_bboxes:
-                cv2.rectangle(img_numpy, (x1, y1), (x2, y2), color, 1)
-            
-            if args.display_text:
-                #_id = idx[j].cpu().numpy()
-                
-                _class = cfg.dataset.class_names[classes[j]]
-                #_class = cfg.dataset.class_names
-                text_str = '%s: %.2f' % (_class, score) if args.display_scores else _class
-                
-                font_face = cv2.FONT_HERSHEY_DUPLEX
-                font_scale = 0.6
-                font_thickness = 1
-
-                text_w, text_h = cv2.getTextSize(text_str, font_face, font_scale, font_thickness)[0]
-
-                text_pt = (x1, y1 - 3)
-                text_color = [255, 255, 255]
-                
-                cv2.rectangle(img_numpy, (x1, y1), (x1 + text_w, y1 - text_h - 4), color, -1)
-                cv2.putText(img_numpy, text_str, text_pt, font_face, font_scale, text_color, font_thickness, cv2.LINE_AA)
-            '''
+    
     return img_numpy
 
 
@@ -715,8 +691,8 @@ def evalvideo(vid, net:Yolact, out_path:str=None):
     # All this timing code to make sure that 
     def play_video():
         try:
+            global mask_numpy, mask_numpy1
             nonlocal frame_buffer, running, num_frames, frames_displayed, vid_done
-            global realX, realY, preX, preY, misx, misy, pi,po
             while running:
                 frame_time_start = time.time()
 
@@ -724,7 +700,15 @@ def evalvideo(vid, net:Yolact, out_path:str=None):
                     next_time = time.time()
 
                     if out_path is None:
+                        #cv2.imshow('test', mask_numpy1)
+                        #cv2.imshow('123',mask_numpy)
                         cv2.imshow("yolact", frame_buffer.get())
+                        #aaa = cv2.cvtColor(frame_buffer.get(), cv2.COLOR_BGR2GRAY)
+                        #cv2.imshow('aaaa', aaa)
+                        '''
+                        if cv2.waitKey(33) & 0xFF == ord('s'):
+                            savedata(mask_numpy)
+                        '''
                     else:
                         out.write(frame_buffer.get())
 
@@ -743,13 +727,10 @@ def evalvideo(vid, net:Yolact, out_path:str=None):
                     '''  
 
                     '''
-                    if realX != []: 
-                        #realX.pop(0)
-                        #realY.pop(0)
-                        #print('x : ',(np.sum(misx)/len(misx)))
-                        #print('y : ',(np.sum(misy)/len(misy)))
-                        plot_data(realX, realY, preX, preY, misx, misy)
-                    '''   
+                    global centerX, centerY , preX, preY
+                    plot_data(centerX, centerY, preX, preY)
+                    '''
+  
                     # Press Escape to close
                     running = False
                 if not (frames_displayed < num_frames):
@@ -832,10 +813,18 @@ def evalvideo(vid, net:Yolact, out_path:str=None):
     
     cleanup_and_exit()
 
+def savedata(img):
+    global take_picture_counter
+    Object_Name = 'test'
+    Train_Data_Dir = os.path.dirname(os.path.realpath(__file__)) + '/'
+    name = str(Train_Data_Dir + str(Object_Name + '_' + str(take_picture_counter+1) + ".jpg"))
+    cv2.imwrite(name,img)
+    print("[Save] ", name)
+    take_picture_counter += 1
 
 if __name__ == '__main__':
-    global model
-    
+    global model, take_picture_counter
+    take_picture_counter = 0
     parse_args()
     rospy.init_node('eval')
     sub_img = Get_image()
@@ -863,17 +852,33 @@ if __name__ == '__main__':
         net.load_weights(args.trained_model)
         net.eval()
         print(' Done.')
+        
+        #test weight
+        model = tf.keras.models.load_model('/home/chien/RNN/model_0306.h5') 
+        x_input = np.array([[[144., 200.], [154., 200.], [164., 200.]]  ])
+        x_input=x_input/100.
 
-        with open("/home/chien/RNN/1230v1.json", "r") as f:
-            model = Sequential()
+        test_img = '/home/chien/data/new_expand_img/data_2.jpg'
+        photo= cv2.imread(test_img,0)
+        photo = np.array(photo) 
+        photo = np.expand_dims(photo, axis=0)
+        photo=photo.reshape((-1,480,640,1))
+        photo=photo/255
+        model.predict([photo, x_input], verbose=0)
+        
+
+        
+        with open("/home/chien/RNN/0106.json", "r") as f:
             json_string = f.read()
-            model = Sequential()
-            model = model_from_json(json_string)
-            model.load_weights("/home/chien/RNN/1230v1.h5")
+            model1 = Sequential()
+            model1 = model_from_json(json_string)
+            model1.load_weights("/home/chien/RNN/0106.h5")
             x1_input = np.array([[[56., 206.], [71., 206.], [87.5, 206.]]])
             x1_input = x1_input.reshape((1, 3, 2))
             x1_input=x1_input/100.
-            model.predict(x1_input, verbose=0)
+            model1.predict(x1_input, verbose=0)
+            
+          
         if args.cuda:
             net = net.cuda()
         #vid = cv2.VideoCapture(0)    
