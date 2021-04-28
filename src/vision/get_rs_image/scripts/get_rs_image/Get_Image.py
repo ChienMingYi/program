@@ -3,8 +3,8 @@
 import sys
 #sys.path.insert(1, "/usr/local/lib/python3.6/dist-packages/")
 
-sys.path.insert(1, "/home/chien/.local/lib/python3.6/site-packages/")
-# sys.path.insert(0, '/opt/installer/open_cv/cv_bridge/lib/python3/dist-packages/')
+sys.path.insert(0, "/home/chien/.local/lib/python3.6/site-packages/cv/")
+sys.path.insert(1, '/opt/installer/open_cv/cv_bridge/lib/python3/dist-packages/')
 import rospy
 from sensor_msgs.msg import Image
 from get_rs_image.srv import *
@@ -13,7 +13,7 @@ import cv2
 from cv_bridge import CvBridge, CvBridgeError
 import numpy as np
 
-class Get_image():
+class my_Get_image():
     def __init__(self):
             
         self.bridge = CvBridge()
@@ -113,7 +113,7 @@ class Get_image():
 if __name__ == '__main__':
     print('python version is: ', sys.version)
     rospy.init_node('get_image_from_rs_d435i', anonymous=True)
-    listener = Get_image()
+    listener = my_Get_image()
     
     rospy.spin()
     cv2.destroyAllWindows()

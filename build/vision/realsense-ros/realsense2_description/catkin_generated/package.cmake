@@ -1,6 +1,6 @@
 set(_CATKIN_CURRENT_PACKAGE "realsense2_description")
-set(realsense2_description_VERSION "2.2.17")
-set(realsense2_description_MAINTAINER "Sergey Dorodnicov <sergey.dorodnicov@intel.com>, Doron Hirshberg <doron.hirshberg@intel.com>")
+set(realsense2_description_VERSION "2.2.24")
+set(realsense2_description_MAINTAINER "Doron Hirshberg <doron.hirshberg@intel.com>")
 set(realsense2_description_PACKAGE_FORMAT "2")
 set(realsense2_description_BUILD_DEPENDS )
 set(realsense2_description_BUILD_EXPORT_DEPENDS )

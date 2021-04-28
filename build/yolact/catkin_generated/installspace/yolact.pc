@@ -1,4 +1,4 @@
-prefix=/home/chien/ros_yolact/install
+prefix=/home/chien/program_file/install
 
 Name: yolact
 Description: Description of yolact

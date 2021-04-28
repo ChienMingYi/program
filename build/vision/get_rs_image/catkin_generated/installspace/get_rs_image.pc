@@ -1,4 +1,4 @@
-prefix=/home/chien/ros_yolact/install
+prefix=/home/chien/program_file/install
 
 Name: get_rs_image
 Description: Description of get_rs_image

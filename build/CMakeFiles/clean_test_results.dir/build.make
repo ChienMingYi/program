@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/chien/ros_yolact/src
+CMAKE_SOURCE_DIR = /home/chien/program_file/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/chien/ros_yolact/build
+CMAKE_BINARY_DIR = /home/chien/program_file/build
 
 # Utility rule file for clean_test_results.
 
@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/chien/ros_yolact/build
 include CMakeFiles/clean_test_results.dir/progress.make
 
 CMakeFiles/clean_test_results:
-	/usr/bin/python2 /opt/ros/melodic/share/catkin/cmake/test/remove_test_results.py /home/chien/ros_yolact/build/test_results
+	/usr/bin/python2 /opt/ros/melodic/share/catkin/cmake/test/remove_test_results.py /home/chien/program_file/build/test_results
 
 clean_test_results: CMakeFiles/clean_test_results
 clean_test_results: CMakeFiles/clean_test_results.dir/build.make
@@ -71,6 +71,6 @@ CMakeFiles/clean_test_results.dir/clean:
 .PHONY : CMakeFiles/clean_test_results.dir/clean
 
 CMakeFiles/clean_test_results.dir/depend:
-	cd /home/chien/ros_yolact/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/chien/ros_yolact/src /home/chien/ros_yolact/src /home/chien/ros_yolact/build /home/chien/ros_yolact/build /home/chien/ros_yolact/build/CMakeFiles/clean_test_results.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/chien/program_file/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/chien/program_file/src /home/chien/program_file/src /home/chien/program_file/build /home/chien/program_file/build /home/chien/program_file/build/CMakeFiles/clean_test_results.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/clean_test_results.dir/depend
 

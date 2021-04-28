@@ -105,18 +105,17 @@ class Config(object):
 
 # ----------------------- DATASETS ----------------------- #
 ##########################################################################mike
-CLASS_DATA=('Danboard_f','Danboard_b','ChiliFlakes_f','ChiliFlakes_b','Block','BlackPapper_f','BlackPapper_b')
-#CLASS_DATA=('Danboard','Chili Flakes','Block')
+CLASS_DATA=('Block','Danboard','Tetra Pak','Bottle')
 dataset_base = Config({
     'name': 'test',
 
     # Training images and annotations
-    'train_images': '/home/chien/Desktop/Training_Data/test/data_dataset_coco',
-    'train_info':   '/home/chien/Desktop/Training_Data/test/data_dataset_coco/annotations.json',
+    'train_images': '/home/chien/DataSet/data_dataset_coco',
+    'train_info':   '/home/chien/DataSet/data_dataset_coco/annotations.json',
 
     # Validation images and annotations.
-    'valid_images': '/home/chien/Desktop/Training_Data/test/data_dataset_coco',
-    'valid_info':   '/home/chien/Desktop/Training_Data/test/data_dataset_coco/annotations.json',
+    'valid_images': '/home/chien/DataSet/data_dataset_coco',
+    'valid_info':   '/home/chien/DataSet/data_dataset_coco/annotations.json',
 
     # Whether or not to load GT. If this is False, eval.py quantitative evaluation won't work.
     'has_gt': True,
@@ -127,7 +126,7 @@ dataset_base = Config({
     # COCO class ids aren't sequential, so this is a bandage fix. If your ids aren't sequential,
     # provide a map from category_id -> index in class_names + 1 (the +1 is there because it's 1-indexed).
     # If not specified, this just assumes category ids start at 1 and increase sequentially.
-    'label_map':{ 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7}
+    'label_map':{ 1: 1, 2: 2, 3: 3, 4: 4}
     
 })
 '''
@@ -685,7 +684,7 @@ yolact_base_config = coco_base_config.copy({
 
     # Dataset stuff
     'dataset': dataset_base,
-    'num_classes': 8,
+    'num_classes': 5, #num+1
 '''
 yolact_base_config = coco_base_config.copy({
     'name': 'yolact_base',

@@ -67,14 +67,14 @@ set(get_rs_image_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(get_rs_image_SOURCE_PREFIX /home/chien/ros_yolact/src/vision/get_rs_image)
-  set(get_rs_image_DEVEL_PREFIX /home/chien/ros_yolact/devel)
+  set(get_rs_image_SOURCE_PREFIX /home/chien/program_file/src/vision/get_rs_image)
+  set(get_rs_image_DEVEL_PREFIX /home/chien/program_file/devel)
   set(get_rs_image_INSTALL_PREFIX "")
   set(get_rs_image_PREFIX ${get_rs_image_DEVEL_PREFIX})
 else()
   set(get_rs_image_SOURCE_PREFIX "")
   set(get_rs_image_DEVEL_PREFIX "")
-  set(get_rs_image_INSTALL_PREFIX /home/chien/ros_yolact/install)
+  set(get_rs_image_INSTALL_PREFIX /home/chien/program_file/install)
   set(get_rs_image_PREFIX ${get_rs_image_INSTALL_PREFIX})
 endif()
 
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/chien/ros_yolact/install/lib;/home/chien/catkin_ws/devel/lib;/opt/ros/melodic/lib)
+    foreach(path /home/chien/program_file/install/lib;/home/chien/catkin_ws/devel/lib;/opt/ros/melodic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

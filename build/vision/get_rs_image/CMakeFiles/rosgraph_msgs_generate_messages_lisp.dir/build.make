@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/chien/ros_yolact/src
+CMAKE_SOURCE_DIR = /home/chien/program_file/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/chien/ros_yolact/build
+CMAKE_BINARY_DIR = /home/chien/program_file/build
 
 # Utility rule file for rosgraph_msgs_generate_messages_lisp.
 
@@ -63,10 +63,10 @@ vision/get_rs_image/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build: r
 .PHONY : vision/get_rs_image/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build
 
 vision/get_rs_image/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/clean:
-	cd /home/chien/ros_yolact/build/vision/get_rs_image && $(CMAKE_COMMAND) -P CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/cmake_clean.cmake
+	cd /home/chien/program_file/build/vision/get_rs_image && $(CMAKE_COMMAND) -P CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/cmake_clean.cmake
 .PHONY : vision/get_rs_image/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/clean
 
 vision/get_rs_image/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/depend:
-	cd /home/chien/ros_yolact/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/chien/ros_yolact/src /home/chien/ros_yolact/src/vision/get_rs_image /home/chien/ros_yolact/build /home/chien/ros_yolact/build/vision/get_rs_image /home/chien/ros_yolact/build/vision/get_rs_image/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/chien/program_file/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/chien/program_file/src /home/chien/program_file/src/vision/get_rs_image /home/chien/program_file/build /home/chien/program_file/build/vision/get_rs_image /home/chien/program_file/build/vision/get_rs_image/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : vision/get_rs_image/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/depend
 

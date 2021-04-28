@@ -4,5 +4,5 @@ PROJECT_PKG_CONFIG_INCLUDE_DIRS = "".split(';') if "" != "" else []
 PROJECT_CATKIN_DEPENDS = "roscpp;rospy;std_msgs".replace(';', ' ')
 PKG_CONFIG_LIBRARIES_WITH_PREFIX = "".split(';') if "" != "" else []
 PROJECT_NAME = "yolact"
-PROJECT_SPACE_DIR = "/home/chien/ros_yolact/devel"
+PROJECT_SPACE_DIR = "/home/chien/program_file/devel"
 PROJECT_VERSION = "0.0.0"

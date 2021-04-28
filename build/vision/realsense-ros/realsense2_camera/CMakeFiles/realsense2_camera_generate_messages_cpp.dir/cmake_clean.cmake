@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/realsense2_camera_generate_messages_cpp"
-  "/home/chien/ros_yolact/devel/include/realsense2_camera/IMUInfo.h"
-  "/home/chien/ros_yolact/devel/include/realsense2_camera/Extrinsics.h"
+  "/home/chien/program_file/devel/include/realsense2_camera/Extrinsics.h"
+  "/home/chien/program_file/devel/include/realsense2_camera/IMUInfo.h"
 )
 
 # Per-language clean rules from dependency scanning.

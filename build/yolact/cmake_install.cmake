@@ -1,8 +1,8 @@
-# Install script for directory: /home/chien/ros_yolact/src/yolact
+# Install script for directory: /home/chien/program_file/src/yolact
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/chien/ros_yolact/install")
+  set(CMAKE_INSTALL_PREFIX "/home/chien/program_file/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,17 +38,17 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/chien/ros_yolact/build/yolact/catkin_generated/installspace/yolact.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/chien/program_file/build/yolact/catkin_generated/installspace/yolact.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/yolact/cmake" TYPE FILE FILES
-    "/home/chien/ros_yolact/build/yolact/catkin_generated/installspace/yolactConfig.cmake"
-    "/home/chien/ros_yolact/build/yolact/catkin_generated/installspace/yolactConfig-version.cmake"
+    "/home/chien/program_file/build/yolact/catkin_generated/installspace/yolactConfig.cmake"
+    "/home/chien/program_file/build/yolact/catkin_generated/installspace/yolactConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/yolact" TYPE FILE FILES "/home/chien/ros_yolact/src/yolact/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/yolact" TYPE FILE FILES "/home/chien/program_file/src/yolact/package.xml")
 endif()
 

@@ -4,5 +4,5 @@ PROJECT_PKG_CONFIG_INCLUDE_DIRS = "".split(';') if "" != "" else []
 PROJECT_CATKIN_DEPENDS = "".replace(';', ' ')
 PKG_CONFIG_LIBRARIES_WITH_PREFIX = "".split(';') if "" != "" else []
 PROJECT_NAME = "realsense2_description"
-PROJECT_SPACE_DIR = "/home/chien/ros_yolact/install"
-PROJECT_VERSION = "2.2.17"
+PROJECT_SPACE_DIR = "/home/chien/program_file/install"
+PROJECT_VERSION = "2.2.24"

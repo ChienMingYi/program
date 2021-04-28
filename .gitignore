@@ -1,9 +1,8 @@
 *.png
 result
-*.txt
 *.jpg
 catkin_workspace/
 *.pth
 *.pyc
 devel/
-build/s
+build/

@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 import rospy
 
-from get_rs_image import Get_image
+from get_rs_image import my_Get_image
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
 import sys
-sys.path.insert(1, "/home/chien/.local/lib/python3.6/site-packages/")
+sys.path.insert(0, "/home/chien/.local/lib/python3.6/site-packages/")
+sys.path.insert(1, '/opt/installer/open_cv/cv_bridge/lib/python3/dist-packages/')
 from sensor_msgs.msg import Image
 
 import datetime 
@@ -27,7 +28,7 @@ Train_Data_Dir = os.path.dirname(os.path.realpath(__file__)) + '/Training_Data/'
 
 
 if __name__ == '__main__':
-    sub_img = Get_image()
+    sub_img = my_Get_image()
     take_picture_counter = 0
     rospy.init_node('Get_Data')
     

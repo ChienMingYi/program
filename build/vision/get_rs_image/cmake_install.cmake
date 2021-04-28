@@ -1,8 +1,8 @@
-# Install script for directory: /home/chien/ros_yolact/src/vision/get_rs_image
+# Install script for directory: /home/chien/program_file/src/vision/get_rs_image
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/chien/ros_yolact/install")
+  set(CMAKE_INSTALL_PREFIX "/home/chien/program_file/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,65 +38,65 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  include("/home/chien/ros_yolact/build/vision/get_rs_image/catkin_generated/safe_execute_install.cmake")
+  include("/home/chien/program_file/build/vision/get_rs_image/catkin_generated/safe_execute_install.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/get_rs_image/msg" TYPE FILE FILES "/home/chien/ros_yolact/src/vision/get_rs_image/msg/Num.msg")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/get_rs_image/msg" TYPE FILE FILES "/home/chien/program_file/src/vision/get_rs_image/msg/Num.msg")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/get_rs_image/srv" TYPE FILE FILES "/home/chien/ros_yolact/src/vision/get_rs_image/srv/FLIR_image.srv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/get_rs_image/srv" TYPE FILE FILES "/home/chien/program_file/src/vision/get_rs_image/srv/FLIR_image.srv")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/get_rs_image/cmake" TYPE FILE FILES "/home/chien/ros_yolact/build/vision/get_rs_image/catkin_generated/installspace/get_rs_image-msg-paths.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/get_rs_image/cmake" TYPE FILE FILES "/home/chien/program_file/build/vision/get_rs_image/catkin_generated/installspace/get_rs_image-msg-paths.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/chien/ros_yolact/devel/include/get_rs_image")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/chien/program_file/devel/include/get_rs_image")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roseus/ros" TYPE DIRECTORY FILES "/home/chien/ros_yolact/devel/share/roseus/ros/get_rs_image")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roseus/ros" TYPE DIRECTORY FILES "/home/chien/program_file/devel/share/roseus/ros/get_rs_image")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/common-lisp/ros" TYPE DIRECTORY FILES "/home/chien/ros_yolact/devel/share/common-lisp/ros/get_rs_image")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/common-lisp/ros" TYPE DIRECTORY FILES "/home/chien/program_file/devel/share/common-lisp/ros/get_rs_image")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gennodejs/ros" TYPE DIRECTORY FILES "/home/chien/ros_yolact/devel/share/gennodejs/ros/get_rs_image")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gennodejs/ros" TYPE DIRECTORY FILES "/home/chien/program_file/devel/share/gennodejs/ros/get_rs_image")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  execute_process(COMMAND "/usr/bin/python2" -m compileall "/home/chien/ros_yolact/devel/lib/python2.7/dist-packages/get_rs_image")
+  execute_process(COMMAND "/usr/bin/python2" -m compileall "/home/chien/program_file/devel/lib/python2.7/dist-packages/get_rs_image")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python2.7/dist-packages" TYPE DIRECTORY FILES "/home/chien/ros_yolact/devel/lib/python2.7/dist-packages/get_rs_image" REGEX "/\\_\\_init\\_\\_\\.py$" EXCLUDE REGEX "/\\_\\_init\\_\\_\\.pyc$" EXCLUDE)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python2.7/dist-packages" TYPE DIRECTORY FILES "/home/chien/program_file/devel/lib/python2.7/dist-packages/get_rs_image" REGEX "/\\_\\_init\\_\\_\\.py$" EXCLUDE REGEX "/\\_\\_init\\_\\_\\.pyc$" EXCLUDE)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python2.7/dist-packages" TYPE DIRECTORY FILES "/home/chien/ros_yolact/devel/lib/python2.7/dist-packages/get_rs_image" FILES_MATCHING REGEX "/home/chien/ros_yolact/devel/lib/python2.7/dist-packages/get_rs_image/.+/__init__.pyc?$")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python2.7/dist-packages" TYPE DIRECTORY FILES "/home/chien/program_file/devel/lib/python2.7/dist-packages/get_rs_image" FILES_MATCHING REGEX "/home/chien/program_file/devel/lib/python2.7/dist-packages/get_rs_image/.+/__init__.pyc?$")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/chien/ros_yolact/build/vision/get_rs_image/catkin_generated/installspace/get_rs_image.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/chien/program_file/build/vision/get_rs_image/catkin_generated/installspace/get_rs_image.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/get_rs_image/cmake" TYPE FILE FILES "/home/chien/ros_yolact/build/vision/get_rs_image/catkin_generated/installspace/get_rs_image-msg-extras.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/get_rs_image/cmake" TYPE FILE FILES "/home/chien/program_file/build/vision/get_rs_image/catkin_generated/installspace/get_rs_image-msg-extras.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/get_rs_image/cmake" TYPE FILE FILES
-    "/home/chien/ros_yolact/build/vision/get_rs_image/catkin_generated/installspace/get_rs_imageConfig.cmake"
-    "/home/chien/ros_yolact/build/vision/get_rs_image/catkin_generated/installspace/get_rs_imageConfig-version.cmake"
+    "/home/chien/program_file/build/vision/get_rs_image/catkin_generated/installspace/get_rs_imageConfig.cmake"
+    "/home/chien/program_file/build/vision/get_rs_image/catkin_generated/installspace/get_rs_imageConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/get_rs_image" TYPE FILE FILES "/home/chien/ros_yolact/src/vision/get_rs_image/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/get_rs_image" TYPE FILE FILES "/home/chien/program_file/src/vision/get_rs_image/package.xml")
 endif()
 

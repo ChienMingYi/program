@@ -34,11 +34,12 @@ import cv2
 from tensorflow.keras.models import Sequential, model_from_json
 import rospy
 import math
-from get_rs_image import Get_image
+from get_rs_image import my_Get_image
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
 import sys
-sys.path.insert(1, "/home/chien/.local/lib/python3.6/site-packages/")
+sys.path.insert(0, "/home/chien/.local/lib/python3.6/site-packages/")
+sys.path.insert(1, '/opt/installer/open_cv/cv_bridge/lib/python3/dist-packages/')
 
 ##################################
 def str2bool(v):
@@ -53,7 +54,7 @@ def parse_args(argv=None):
     parser = argparse.ArgumentParser(
         description='YOLACT COCO Evaluation')
     parser.add_argument('--trained_model',
-                        default='/home/chien/ros_yolact/src/yolact/src/weights/yolact_base_1086_50000.pth', type=str,
+                        default='/home/chien/ros_yolact/src/yolact/src/weights/yolact_base_199_50000.pth', type=str,
                         help='Trained state_dict file path to open. If "interrupt", this will open the interrupt file.')
     parser.add_argument('--top_k', default=100, type=int,
                         help='Further restrict the number of predictions to parse')
@@ -468,6 +469,7 @@ def prep_display(dets_out, img, h, w, undo_transform=True, class_color=False, ma
 
             
             if obj_info[j][2] == 1:
+                '''
                 if frame_count%10 == 3:
                     
                     centerX.append(obj_info[j][4][0])
@@ -514,6 +516,7 @@ def prep_display(dets_out, img, h, w, undo_transform=True, class_color=False, ma
                             #preY.append(num)
 
                         flag = True
+                '''
                 color = get_color(obj_info[j][0])
                 score = obj_info[j][3]
                 
@@ -827,7 +830,8 @@ if __name__ == '__main__':
     take_picture_counter = 0
     parse_args()
     rospy.init_node('eval')
-    sub_img = Get_image()
+    sub_img = my_Get_image()
+    
     if args.config is None:
         model_path = SavePath.from_str(args.trained_model)
         # TODO: Bad practice? Probably want to do a name lookup instead.
@@ -867,7 +871,7 @@ if __name__ == '__main__':
         model.predict([photo, x_input], verbose=0)
         
 
-        
+        '''
         with open("/home/chien/RNN/0106.json", "r") as f:
             json_string = f.read()
             model1 = Sequential()
@@ -877,7 +881,7 @@ if __name__ == '__main__':
             x1_input = x1_input.reshape((1, 3, 2))
             x1_input=x1_input/100.
             model1.predict(x1_input, verbose=0)
-            
+        '''   
           
         if args.cuda:
             net = net.cuda()

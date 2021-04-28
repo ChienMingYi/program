@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/chien/ros_yolact/src
+CMAKE_SOURCE_DIR = /home/chien/program_file/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/chien/ros_yolact/build
+CMAKE_BINARY_DIR = /home/chien/program_file/build
 
 # Utility rule file for run_tests.
 
@@ -67,6 +67,6 @@ CMakeFiles/run_tests.dir/clean:
 .PHONY : CMakeFiles/run_tests.dir/clean
 
 CMakeFiles/run_tests.dir/depend:
-	cd /home/chien/ros_yolact/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/chien/ros_yolact/src /home/chien/ros_yolact/src /home/chien/ros_yolact/build /home/chien/ros_yolact/build /home/chien/ros_yolact/build/CMakeFiles/run_tests.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/chien/program_file/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/chien/program_file/src /home/chien/program_file/src /home/chien/program_file/build /home/chien/program_file/build /home/chien/program_file/build/CMakeFiles/run_tests.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/run_tests.dir/depend
 
